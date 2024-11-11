@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用者登入</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="login-title">sign in</h2>
+            <div class="avatar-section">
+                <!-- 當前頭像，點擊後顯示預設圖片選單 -->
+                <img src="頭像1.jpg" alt="User Avatar" class="avatar" onclick="toggleAvatarPopup()">
+            </div>
+            <form class="login-form">
+                <label for="email">email</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="name">name</label>
+                <input type="text" id="name" name="name" required>
+                
+                <button type="submit" class="submit-button">確認登入</button>
+            </form>
+            
+            
+        </div>
+
+        <!-- 預設頭像選擇彈出框 -->
+        <div id="avatar-popup" class="avatar-popup">
+            <p>選擇頭像</p>
+            <div class="avatar-options">
+                <img src="頭像1.jpg" alt="Avatar 1" class="avatar-option" onclick="selectAvatar('頭像1.jpg')">
+                <img src="頭像2.jpg" alt="Avatar 2" class="avatar-option" onclick="selectAvatar('頭像2.jpg')">
+                <img src="頭像3.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('頭像3.jpg')">
+                <img src="頭像4.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('頭像4.jpg')">
+                <img src="頭像5.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('頭像5.jpg')">
+                <img src="頭像6.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('頭像6.jpg')">
+                <img src="頭像7.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('頭像7.jpg')">
+                <img src="頭像8.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('頭像8.jpg')">
+                <img src="頭像9.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('頭像9.jpg')">
+                <img src="頭像10.jpg" alt="Avatar 3" class="avatar-option" onclick="selectAvatar('頭像10.jpg')">
+                <!-- 可以根據需要新增更多頭像選項 -->
+
+                <!-- 圓形「上傳圖片」選項按鈕 -->
+                <label class="avatar-upload-button">
+                    <input type="file" id="avatar-file-input" style="display: none;" accept="image/*" onchange="uploadAvatar(event)">
+                    +
+                </label>
+            </div>
+            <!-- 隱藏欄位來保存頭像 URL -->
+        <input type="hidden" id="avatar-url" name="avatar_url">
+
+        </div>
+    </div>
+
+    <script>
+        // 切換頭像選擇彈出框的顯示狀態
+        function toggleAvatarPopup() {
+    const popup = document.getElementById('avatar-popup');
+    popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
+
+    if (popup.style.display === 'flex') {
+        window.onclick = function(event) {
+            if (!popup.contains(event.target) && event.target !== document.querySelector('.avatar')) {
+                popup.style.display = 'none';
+                window.onclick = null; // 解除事件監聽
+            }
+        };
+    }
+}
+
+        // 選擇頭像並關閉彈出框
+        function selectAvatar(src) {
+            document.querySelector('.avatar').src = src;
+            document.querySelector('#avatar-url').value = src;
+            toggleAvatarPopup();
+        }
+
+        // 初始化 Supabase
+// 初始化 Supabase
+const SUPABASE_URL = "https://dqcwygutsfiepcbathqm.supabase.co"; // 替換為你的 Project URL
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxY3d5Z3V0c2ZpZXBjYmF0aHFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEwNzYxODksImV4cCI6MjA0NjY1MjE4OX0.EcmYcKIUZGXOc3PP0ViL58olwi_tCYmFRPlwVe58IAk"; // 替換為你的 anon public key
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
+
+document.querySelector('.login-form').addEventListener('submit', async (e) => {
+    e.preventDefault(); // 防止表單的預設提交行為
+
+    const email = document.querySelector('#email').value;
+    const name = document.querySelector('#name').value;
+    const avatarUrl = document.querySelector('#avatar-url').value;
+
+    try {
+        const { data, error } = await supabaseClient.from('users').insert([
+            { email: email, name: name, avatar_url: avatarUrl }
+        ]);
+
+        if (error) {
+            console.error('Error inserting data:', error);
+            alert('無法登入，一個信箱或姓名，只能被使用一次');
+        } else {
+            alert('登入成功！');
+            window.location.href = 'example.html'; // 導向到新頁面
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('發生未知錯誤，請稍後再試');
+    }
+});
+
+function uploadAvatar(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.querySelector('.avatar').src = e.target.result;
+            document.querySelector('#avatar-url').value = e.target.result; // 保存圖片的 base64 資料 URL
+        };
+        reader.readAsDataURL(file); // 將圖片轉換為 base64 格式
+        toggleAvatarPopup();
+    }
+}
+
+
+    </script>
+</body>
+</html>
