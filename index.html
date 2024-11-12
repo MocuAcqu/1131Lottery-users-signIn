@@ -10,7 +10,7 @@
 <body>
     <div class="login-container">
         <div class="login-box">
-            <h2 class="login-title">sign in</h2>
+            <h2 class="login-title">登入</h2>
             <div class="avatar-section">
                 <!-- 當前頭像，點擊後顯示預設圖片選單 -->
                 <img src="頭像1.jpg" alt="User Avatar" class="avatar" onclick="toggleAvatarPopup()">
@@ -103,14 +103,20 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
             console.error('Error inserting data:', error);
             alert('無法登入，一個信箱或姓名，只能被使用一次');
         } else {
+            // 儲存使用者資料到 localStorage
+            localStorage.setItem('userAvatar', avatarUrl);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userName', name);
+
             alert('登入成功！');
-            window.location.href = 'example.html'; // 導向到新頁面
+            window.location.href = 'signIn.html'; // 導向到新頁面
         }
     } catch (error) {
         console.error('Error:', error);
         alert('發生未知錯誤，請稍後再試');
     }
 });
+
 
 function uploadAvatar(event) {
     const file = event.target.files[0];
