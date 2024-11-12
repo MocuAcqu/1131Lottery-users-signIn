@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入成功</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h2>歡迎，<span id="userName"></span>！</h2>
+        <div class="user-info">
+            <p><strong>email：</strong><span id="userEmail"></span></p>
+            <img id="userAvatar" src="" alt="User Avatar" class="avatar">
+        </div>
+        <div class="blessings">
+            <p>祝您中獎!</p>
+        </div>
+        <div class="warning">
+            <p>請出示此畫面進行領獎</p>
+        </div>
+
+        <div>
+        <!-- 新增分享按鈕 -->
+        <button id="shareButton" class="share">分享此頁面</button>
+        </div>
+    </div>
+
+    <script>
+        // 從 localStorage 中讀取使用者資料
+        const userAvatar = localStorage.getItem('userAvatar');
+        const userEmail = localStorage.getItem('userEmail');
+        const userName = localStorage.getItem('userName');
+
+        // 將使用者資料顯示在頁面上
+        document.getElementById('userAvatar').src = userAvatar;
+        document.getElementById('userEmail').textContent = userEmail;
+        document.getElementById('userName').textContent = userName;
+
+        // 分享功能
+        const shareButton = document.getElementById('shareButton');
+        shareButton.addEventListener('click', async () => {
+            if (navigator.share) {  // 檢查瀏覽器是否支持 Web Share API
+                try {
+                    await navigator.share({
+                        title: '登入成功頁面',
+                        text: `歡迎，${userName}！祝您中獎！請出示此畫面進行領獎。`,
+                        url: window.location.href  // 當前頁面的網址
+                    });
+                    console.log('分享成功');
+                } catch (error) {
+                    console.error('分享失敗', error);
+                }
+            } else {
+                alert('您的瀏覽器不支持分享功能');
+            }
+        });
+    </script>
+</body>
+</html>
