@@ -74,10 +74,11 @@
 
         // 選擇頭像並關閉彈出框
         function selectAvatar(src) {
-            document.querySelector('.avatar').src = src;
-            document.querySelector('#avatar-url').value = src;
-            toggleAvatarPopup();
-        }
+    document.querySelector('.avatar').src = src;
+    document.querySelector('#avatar-url').value = src || '頭像1.jpg';
+    toggleAvatarPopup();
+}
+
 
         // 初始化 Supabase
 // 初始化 Supabase
