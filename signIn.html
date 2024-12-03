@@ -29,6 +29,10 @@
         const userEmail = localStorage.getItem('userEmail');
         const userName = localStorage.getItem('userName');
         
+        if (!userAvatar){
+            const avatarUrl = document.selectAvatar('請選擇頭像.png').value;
+            localStorage.setItem('userAvatar', avatarUrl);
+        }
         // 將使用者資料顯示在頁面上
         document.getElementById('userAvatar').src = userAvatar;
         document.getElementById('userEmail').textContent = userEmail;
