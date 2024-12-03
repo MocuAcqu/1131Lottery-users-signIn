@@ -110,7 +110,7 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
 
         if (error) {
             console.error('Error inserting data:', error);
-            alert('無法登入，一個信箱只能被使用一次');
+            alert('無法登入，一個信箱或名稱，只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
             
