@@ -20,10 +20,7 @@
             <p>請出示此畫面進行領獎</p>
         </div>
 
-        <div>
-        <!-- 新增分享按鈕 -->
-        <button id="shareButton" class="share">分享此頁面</button>
-        </div>
+        
     </div>
 
     <script>
@@ -37,24 +34,6 @@
         document.getElementById('userEmail').textContent = userEmail;
         document.getElementById('userName').textContent = userName;
 
-        // 分享功能
-        const shareButton = document.getElementById('shareButton');
-        shareButton.addEventListener('click', async () => {
-            if (navigator.share) {  // 檢查瀏覽器是否支持 Web Share API
-                try {
-                    await navigator.share({
-                        title: '登入成功頁面',
-                        text: `歡迎，${userName}！祝您中獎！請出示此畫面進行領獎。`,
-                        url: window.location.href  // 當前頁面的網址
-                    });
-                    console.log('分享成功');
-                } catch (error) {
-                    console.error('分享失敗', error);
-                }
-            } else {
-                alert('您的瀏覽器不支持分享功能');
-            }
-        });
     </script>
 </body>
 </html>
