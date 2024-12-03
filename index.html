@@ -100,11 +100,7 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
     const name = document.querySelector('#name').value;
     const avatarUrl = document.querySelector('#avatar-url').value;
     
-     // 如果未選擇頭像，設置為預設頭像
-     if (!avatarUrl) {
-        avatarUrl = '頭像1.jpg';
-        document.querySelector('#avatar-url').value = avatarUrl;
-    }
+
     //localStorage.setItem('userAvatar', '頭像1.jpg');
 
     try {
@@ -117,7 +113,12 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
             alert('無法登入，一個信箱只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
-
+                 // 如果未選擇頭像，設置為預設頭像
+            if (!avatarUrl) {
+                avatarUrl = '頭像1.jpg';
+                document.querySelector('#avatar-url').value = avatarUrl;
+            }
+            
             localStorage.setItem('userAvatar', avatarUrl);
             localStorage.setItem('userEmail', email);
             localStorage.setItem('userName', name);
