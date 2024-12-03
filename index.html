@@ -74,15 +74,10 @@
     }
 }
 
-    const email = document.querySelector('#email').value;
-    const name = document.querySelector('#name').value;
-    const avatarUrl = document.querySelector('#avatar-url').value;
-
         // 選擇頭像並關閉彈出框
     function selectAvatar(src) {
     document.querySelector('.avatar').src = src;
     document.querySelector('#avatar-url').value = src || '頭像1.jpg';
-    localStorage.setItem('userAvatar', '頭像1.jpg');
     toggleAvatarPopup();
     }
 
@@ -97,6 +92,10 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 document.querySelector('.login-form').addEventListener('submit', async (e) => {
     e.preventDefault(); // 防止表單的預設提交行為
+
+    const email = document.querySelector('#email').value;
+    const name = document.querySelector('#name').value;
+    const avatarUrl = document.querySelector('#avatar-url').value;
     
     localStorage.setItem('userAvatar', '頭像1.jpg');
 
@@ -110,6 +109,7 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
             alert('無法登入，一個信箱只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
+            localStorage.setItem('userAvatar', '頭像1.jpg');
             localStorage.setItem('userAvatar', avatarUrl);
             localStorage.setItem('userEmail', email);
             localStorage.setItem('userName', name);
