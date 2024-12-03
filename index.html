@@ -109,7 +109,7 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
             alert('無法登入，一個信箱只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
-            if (document.querySelector('#avatar-url').value === 'EMPTY'){
+            if (document.querySelector('#avatar-url').value === ''){
                 avatarUrl = document.querySelector('頭像1.jpg').value;
                 localStorage.setItem('userAvatar', avatarUrl);
                 localStorage.setItem('userEmail', email);
