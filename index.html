@@ -74,10 +74,15 @@
     }
 }
 
+    const email = document.querySelector('#email').value;
+    const name = document.querySelector('#name').value;
+    const avatarUrl = document.querySelector('#avatar-url').value;
+
         // 選擇頭像並關閉彈出框
     function selectAvatar(src) {
     document.querySelector('.avatar').src = src;
     document.querySelector('#avatar-url').value = src || '頭像1.jpg';
+    localStorage.setItem('userAvatar', '頭像1.jpg');
     toggleAvatarPopup();
     }
 
@@ -92,10 +97,6 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 document.querySelector('.login-form').addEventListener('submit', async (e) => {
     e.preventDefault(); // 防止表單的預設提交行為
-
-    const email = document.querySelector('#email').value;
-    const name = document.querySelector('#name').value;
-    const avatarUrl = document.querySelector('#avatar-url').value;
     
     localStorage.setItem('userAvatar', '頭像1.jpg');
 
