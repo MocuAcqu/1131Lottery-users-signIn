@@ -59,7 +59,7 @@
     </div>
 
     <script>
-    const selecttimes = 0;
+    //const selecttimes = 0;
 
         // 切換頭像選擇彈出框的顯示狀態
     function toggleAvatarPopup() {
@@ -81,7 +81,7 @@
     document.querySelector('.avatar').src = src;
     document.querySelector('#avatar-url').value = src || '頭像1.jpg';
     toggleAvatarPopup();
-    selecttimes = 1;
+    //selecttimes = 1;
     }
 
 
@@ -112,16 +112,11 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
             alert('無法登入，一個信箱只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
-            if (selecttimes === 0){
-                avatarUrl = document.querySelector('頭像1.jpg').value;
-                localStorage.setItem('userAvatar', avatarUrl);
-                localStorage.setItem('userEmail', email);
-                localStorage.setItem('userName', name);
-            }else{
-                localStorage.setItem('userAvatar', avatarUrl);
-                localStorage.setItem('userEmail', email);
-                localStorage.setItem('userName', name);
-            }
+
+            localStorage.setItem('userAvatar', avatarUrl);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userName', name);
+            
 
 
             alert('登入成功！');
