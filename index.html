@@ -97,7 +97,7 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
     const name = document.querySelector('#name').value;
     const avatarUrl = document.querySelector('#avatar-url').value;
     
-    localStorage.setItem('userAvatar', '頭像1.jpg');
+    //localStorage.setItem('userAvatar', '頭像1.jpg');
 
     try {
         const { data, error } = await supabaseClient.from('users').insert([
@@ -109,10 +109,16 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
             alert('無法登入，一個信箱只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
-            localStorage.setItem('userAvatar', '頭像1.jpg');
-            localStorage.setItem('userAvatar', avatarUrl);
-            localStorage.setItem('userEmail', email);
-            localStorage.setItem('userName', name);
+            if (document.querySelector('#avatar-url').value === '頭像1.jpg'){
+                localStorage.setItem('userAvatar', '頭像1.jpg');
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userName', name);
+            }else{
+                localStorage.setItem('userAvatar', avatarUrl);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userName', name);
+            }
+
 
             alert('登入成功！');
             window.location.href = 'signIn.html'; // 導向到新頁面
