@@ -109,8 +109,9 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
             alert('無法登入，一個信箱只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
-            if (document.querySelector('#avatar-url').value === '頭像1.jpg'){
-                localStorage.setItem('userAvatar', '頭像1.jpg');
+            if (document.querySelector('#avatar-url').value === 'EMPTY'){
+                avatarUrl = document.querySelector('頭像1.jpg').value;
+                localStorage.setItem('userAvatar', avatarUrl);
                 localStorage.setItem('userEmail', email);
                 localStorage.setItem('userName', name);
             }else{
