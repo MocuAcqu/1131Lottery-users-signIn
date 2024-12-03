@@ -13,7 +13,7 @@
             <h2 class="login-title">登入</h2>
             <div class="avatar-section">
                 <!-- 當前頭像，點擊後顯示預設圖片選單 -->
-                <img src="頭像1.jpg" alt="User Avatar" class="avatar" onclick="selectAvatar('頭像1.jpg')">
+                <img src="請選擇頭像.png" class="avatar" onclick="selectAvatar('請選擇頭像.png')">
             </div>
             <form class="login-form">
                 <label for="email">email</label>
@@ -113,12 +113,8 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
             alert('無法登入，一個信箱只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
-                 // 如果未選擇頭像，設置為預設頭像
-            if (!avatarUrl) {
-                avatarUrl = '頭像1.jpg';
-                document.querySelector('#avatar-url').value = avatarUrl;
-            }
             
+
             localStorage.setItem('userAvatar', avatarUrl);
             localStorage.setItem('userEmail', email);
             localStorage.setItem('userName', name);
