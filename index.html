@@ -50,15 +50,17 @@
                     +
                 </label>
             </div>
+            <!-- 隱藏欄位來保存頭像 URL -->
+       
 
         </div>
-        <!-- 隱藏欄位來保存頭像 URL -->
         <input type="hidden" id="avatar-url" name="avatar_url">
+
     </div>
 
     <script>
         // 切換頭像選擇彈出框的顯示狀態
-        function toggleAvatarPopup() {
+    function toggleAvatarPopup() {
     const popup = document.getElementById('avatar-popup');
     popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
 
@@ -73,14 +75,14 @@
 }
 
         // 選擇頭像並關閉彈出框
-        function selectAvatar(src) {
+    function selectAvatar(src) {
     document.querySelector('.avatar').src = src;
     document.querySelector('#avatar-url').value = src || '頭像1.jpg';
     toggleAvatarPopup();
-}
+    }
 
 
-        // 初始化 Supabase
+
 // 初始化 Supabase
 const SUPABASE_URL = "https://dqcwygutsfiepcbathqm.supabase.co"; // 替換為你的 Project URL
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxY3d5Z3V0c2ZpZXBjYmF0aHFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEwNzYxODksImV4cCI6MjA0NjY1MjE4OX0.EcmYcKIUZGXOc3PP0ViL58olwi_tCYmFRPlwVe58IAk"; // 替換為你的 anon public key
@@ -94,6 +96,8 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
     const email = document.querySelector('#email').value;
     const name = document.querySelector('#name').value;
     const avatarUrl = document.querySelector('#avatar-url').value;
+    
+    localStorage.setItem('userAvatar', '頭像1.jpg');
 
     try {
         const { data, error } = await supabaseClient.from('users').insert([
@@ -102,7 +106,7 @@ document.querySelector('.login-form').addEventListener('submit', async (e) => {
 
         if (error) {
             console.error('Error inserting data:', error);
-            alert('無法登入，一個信箱或姓名，只能被使用一次');
+            alert('無法登入，一個信箱只能被使用一次');
         } else {
             // 儲存使用者資料到 localStorage
             localStorage.setItem('userAvatar', avatarUrl);
