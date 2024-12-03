@@ -11,7 +11,7 @@
         <h2>歡迎，<span id="userName"></span>！</h2>
         <div class="user-info">
             <p><strong>email：</strong><span id="userEmail"></span></p>
-            <img id="userAvatar" src="" alt="User Avatar" class="avatar">
+            <img id="userAvatar" src=""  class="avatar">
         </div>
         <div class="blessings">
             <p>祝您中獎!</p>
@@ -31,7 +31,7 @@
         const userAvatar = localStorage.getItem('userAvatar');
         const userEmail = localStorage.getItem('userEmail');
         const userName = localStorage.getItem('userName');
-
+        
         // 將使用者資料顯示在頁面上
         document.getElementById('userAvatar').src = userAvatar;
         document.getElementById('userEmail').textContent = userEmail;
